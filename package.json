@@ -1,7 +1,28 @@
 {
+  "name": "tpexpresspostman",
+  "version": "1.0.0",
+  "description": "",
+  "homepage": "https://github.com/andresperel/tpExpressPostman#readme",
+  "bugs": {
+    "url": "https://github.com/andresperel/tpExpressPostman/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/andresperel/tpExpressPostman.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+
+  },
   "dependencies": {
-    "axios": "^1.14.0",
+    "axios": "^1.15.0",
     "cors": "^2.8.6",
     "express": "^5.2.1"
-  }
+  },
+  "devDependencies": {}
 }

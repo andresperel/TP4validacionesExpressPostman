@@ -1,17 +1,12 @@
-export class Alumno {
+export default class Alumno {
 
-  constructor(username,DNI, edad) {
-    this.username =username;
-    this.DNI= DNI;
-    this.edad = edad
+  constructor(username, dni, edad) {
+    this.username = username;
+    this.dni = dni;
+    this.edad = edad;
   }
 
-  //toString() {
-  //      let concatenatar = (this.username + this.DNI + this.edad);
-  //      return concatenatar;
-  //}
-
   toString() {
-    return `Nombre: ${this.username}, DNI: ${this.DNI}, Edad: ${this.edad}`;
-}
+    return `Nombre: ${this.username}, DNI: ${this.dni}, Edad: ${this.edad}`;
+  }
 }

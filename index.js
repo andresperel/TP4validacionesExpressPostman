@@ -17,9 +17,31 @@ app.use(cors());         // Middleware de CORS
 app.use(express.json()); // Middleware para parsear y comprender JSON
 
 
-//
 
-// Aca pongo todos los EndPoints
+app.get('/', (req, res) => {               
+
+    res.send('Ya estoy respondiendo!');
+
+})
+
+
+app.get('/saludar/:nombre', (req, res) => {
+    const nombre = req.params.nombre;
+    res.status(200).send(`Hola ${nombre}`);
+});
+app.get('/validarfecha/:ano/:mes/:dia', (req, res) => {
+    const { ano, mes, dia } = req.params;
+
+    const fecha = `${ano}-${mes}-${dia}`;
+    const esValida = !isNaN(Date.parse(fecha));
+
+    if (esValida) {
+        res.status(200).send("Fecha válida");
+    } else {
+        res.status(400).send("Fecha inválida");
+    }
+});
+
 app.get('/matematica/sumar', (req, res) => {
     const { n1, n2 } = req.query;
 
@@ -58,29 +80,7 @@ alumnosArray.push(new Alumno("Matias Queroso", "28946255", 51));
 alumnosArray.push(new Alumno("Elba Calao", "32623391", 18));
 //
 
-app.get('/', (req, res) => {                // EndPoint "/"
 
-    res.send('Ya estoy respondiendo!');
-
-})
-
-
-app.get('/saludar/:nombre', (req, res) => {
-    const nombre = req.params.nombre;
-    res.status(200).send(`Hola ${nombre}`);
-});
-app.get('/validarfecha/:ano/:mes/:dia', (req, res) => {
-    const { ano, mes, dia } = req.params;
-
-    const fecha = `${ano}-${mes}-${dia}`;
-    const esValida = !isNaN(Date.parse(fecha));
-
-    if (esValida) {
-        res.status(200).send("Fecha válida");
-    } else {
-        res.status(400).send("Fecha inválida");
-    }
-});
 app.get('/omdb/searchbypage', async (req, res) => {
     const { search, p } = req.query;
 

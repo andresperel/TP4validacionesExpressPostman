@@ -18,4 +18,4 @@ const dividir = (a, b) => {
 const arrayNumeros = ["dos", "cuatro", "ocho", "diez"];
 
 // Exporto todo lo que yo quiero exponer del módulo hacia el exterior.
-export { PI, sumar, restar, multiplicar, dividir, numeros };
+export { PI, sumar, restar, multiplicar, dividir, arrayNumeros };
