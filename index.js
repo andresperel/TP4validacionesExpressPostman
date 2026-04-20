@@ -1,3 +1,5 @@
+import ValidacionesHelper from './modules/validaciones-helper.js';
+import DateTimeHelper     from './modules/datetime-helper.js';
 import Alumno from "./models/alumno.js"
 
 import {sumar, restar, multiplicar, dividir} from "./modules/matematica.js"
@@ -62,18 +64,19 @@ app.get('/matematica/multiplicar', (req, res) => {
     const resultado = multiplicar(Number(n1), Number(n2));
     res.status(200).json({ resultado });
 });
-
 app.get('/matematica/dividir', (req, res) => {
-    const { n1, n2 } = req.query;
+  const n1 = ValidacionesHelper.getIntegerOrDefault(req.query.n1, null);
+  const n2 = ValidacionesHelper.getIntegerOrDefault(req.query.n2, null);
 
-    if (Number(n2) === 0) {
-        return res.status(400).send("El divisor no puede ser cero");
-    }
+  if (n1 === null || n2 === null) {
+    return res.status(400).send('n1 y n2 deben ser números enteros');
+  }
+  if (n2 === 0) {
+    return res.status(400).send('El divisor no puede ser cero');
+  }
 
-    const resultado = dividir(Number(n1), Number(n2));
-    res.status(200).json({ resultado });
+  res.status(200).send(String(dividir(n1, n2)));
 });
-const alumnosArray = [];
 
 alumnosArray.push(new Alumno("Esteban Dido", "22888444", 20));
 alumnosArray.push(new Alumno("Matias Queroso", "28946255", 51));
