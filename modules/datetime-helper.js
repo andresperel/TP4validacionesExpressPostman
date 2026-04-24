@@ -1,12 +1,70 @@
-// src/modules/datetime-helper.js
 class DateTimeHelper {
 
-  isDate              = (fecha) => { /* ... */ };
-  getOnlyDate         = (fecha = new Date()) => { /* ... */ };
-  getEdadActual       = (fechaNacimiento) => { /* ... */ };
-  getDiasHastaMiCumple = (fechaNacimiento) => { /* ... */ };
-  getDiaTexto         = (fecha, retornarAbreviacion = false) => { /* ... */ };
-  getMesTexto         = (fecha, retornarAbreviacion = false) => { /* ... */ };
+  isDate = (fecha) => {
+    return fecha instanceof Date && !isNaN(fecha.getTime());
+  };
+
+  getOnlyDate = (fecha = new Date()) => {
+    const copia = new Date(fecha);
+    copia.setHours(0, 0, 0, 0);
+    return copia;
+  };
+
+  getEdadActual = (fechaNacimiento) => {
+    if (!this.isDate(fechaNacimiento)) return -1;
+
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+
+    const mesActual = hoy.getMonth();
+    const diaActual = hoy.getDate();
+
+    const mesNac = fechaNacimiento.getMonth();
+    const diaNac = fechaNacimiento.getDate();
+
+    if (mesActual < mesNac || (mesActual === mesNac && diaActual < diaNac)) {
+      edad--;
+    }
+
+    return edad;
+  };
+
+  getDiasHastaMiCumple = (fechaNacimiento) => {
+    if (!this.isDate(fechaNacimiento)) return -1;
+
+    const hoy = new Date();
+    let proximoCumple = new Date(
+      hoy.getFullYear(),
+      fechaNacimiento.getMonth(),
+      fechaNacimiento.getDate()
+    );
+
+    if (proximoCumple < hoy) {
+      proximoCumple.setFullYear(hoy.getFullYear() + 1);
+    }
+
+    const diff = proximoCumple - hoy;
+    return Math.ceil(diff / (1000 * 60 * 60 * 24));
+  };
+
+  getDiaTexto = (fecha, retornarAbreviacion = false) => {
+    if (!this.isDate(fecha)) return null;
+
+    const dias = ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"];
+    const dia = dias[fecha.getDay()];
+
+    return retornarAbreviacion ? dia.substring(0, 3) : dia;
+  };
+
+  getMesTexto = (fecha, retornarAbreviacion = false) => {
+    if (!this.isDate(fecha)) return null;
+
+    const meses = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                   "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+    const mes = meses[fecha.getMonth()];
+
+    return retornarAbreviacion ? mes.substring(0, 3) : mes;
+  };
 
 }
 
